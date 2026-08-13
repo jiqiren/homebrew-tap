@@ -16,7 +16,7 @@ class CliToot < Formula
   end
 
   def install
-    system "meson", "setup", "build", *std_meson_args
+    system "meson", "setup", "build", *std_meson_args, "--wrap-mode=nofallback"
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
   end
