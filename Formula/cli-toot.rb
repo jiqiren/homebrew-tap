@@ -1,8 +1,8 @@
 class CliToot < Formula
   desc "Minimal C23 CLI Mastodon client"
   homepage "https://github.com/jiqiren/cli-toot"
-  url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "48e03abbbaef53a3a547bc555ba626071d68e8c44546eb83b3fb63f78db6b374"
+  url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.0.3.tar.gz"
+  sha256 "bc4c014d64abd16da4a7dbc3c2bff672d8ee4e340f63913670bfddc3269a13bb"
   license "BSD-3-Clause"
 
   depends_on "meson" => :build
