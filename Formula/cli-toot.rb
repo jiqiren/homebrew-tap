@@ -8,8 +8,8 @@ class CliToot < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
-  depends_on "curl"
   depends_on "cjson"
+  depends_on "curl"
 
   on_linux do
     depends_on "openssl@3"
