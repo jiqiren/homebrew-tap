@@ -4,7 +4,11 @@ class CliToot < Formula
   url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.0.3.tar.gz"
   sha256 "bc4c014d64abd16da4a7dbc3c2bff672d8ee4e340f63913670bfddc3269a13bb"
   license "BSD-3-Clause"
-  livecheck "https://github.com/jiqiren/cli-toot/releases/latest"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
