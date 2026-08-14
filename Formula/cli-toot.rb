@@ -17,12 +17,12 @@ class CliToot < Formula
   depends_on "curl"
 
   on_linux do
-    depends_on "gcc" => :build
+    depends_on "llvm" => :build
     depends_on "openssl@3"
   end
 
   def install
-    ENV["CC"] = Formula["gcc"].opt_bin/"gcc" if OS.linux?
+    ENV["CC"] = Formula["llvm"].opt_bin/"clang" if OS.linux?
     system "meson", "setup", "build", *std_meson_args, "--wrap-mode=nofallback"
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
