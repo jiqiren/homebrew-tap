@@ -1,22 +1,14 @@
 class CliToot < Formula
   desc "Minimal C23 CLI Mastodon client"
   homepage "https://github.com/jiqiren/cli-toot"
-  url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.0.3.tar.gz"
-  sha256 "bc4c014d64abd16da4a7dbc3c2bff672d8ee4e340f63913670bfddc3269a13bb"
+  url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "6da391b0d053418823ddada8355139a9cb85c621275a96c8b4bc52c757ee786e"
   license "BSD-3-Clause"
   head "https://github.com/jiqiren/cli-toot.git", branch: "main"
 
   livecheck do
     url :stable
     strategy :github_latest
-  end
-
-  bottle do
-    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/cli-toot-1.0.3"
-    rebuild 1
-    sha256 cellar: :any, arm64_tahoe:  "22244b8c9a6db65249fa86af51ef00ae134cc4b838451ad2c2b225ad35063357"
-    sha256               arm64_linux:  "695d2de5b1037af67b4ad6eff9e5b24d1adfb8b2b710efe0da5aa88e8a2e0815"
-    sha256               x86_64_linux: "d5bb940bf1e76565bfe3ac749a123144d7c619480b06f251741854e78a105a76"
   end
 
   depends_on "meson" => :build
