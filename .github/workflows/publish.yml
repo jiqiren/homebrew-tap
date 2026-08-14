@@ -43,7 +43,7 @@ jobs:
 
       - name: Get version
         id: version
-        run: echo "version=$(brew ruby -e 'puts Formula["cli-toot"].version')" >> $GITHUB_OUTPUT
+        run: echo "version=$(brew ruby -e 'puts Formula["cli-toot"].version')" >> "$GITHUB_OUTPUT"
 
       - name: Merge bottles into formula
         env:
@@ -52,7 +52,7 @@ jobs:
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
         run: |
           tag="cli-toot-${{ steps.version.outputs.version }}"
-          brew bottle --merge --write --root-url="https://github.com/${{ github.repository }}/releases/download/${tag}" *.bottle.json
+          brew bottle --merge --write --root-url="https://github.com/${{ github.repository }}/releases/download/${tag}" ./*.bottle.json
 
       - name: Upload bottles to GitHub release
         env:
@@ -60,9 +60,9 @@ jobs:
         run: |
           tag="cli-toot-${{ steps.version.outputs.version }}"
           if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" *.bottle.tar.gz --clobber
+            gh release upload "$tag" ./*.bottle.tar.gz --clobber
           else
-            gh release create "$tag" --title="cli-toot ${{ steps.version.outputs.version }}" --generate-notes *.bottle.tar.gz
+            gh release create "$tag" --title="cli-toot ${{ steps.version.outputs.version }}" --generate-notes ./*.bottle.tar.gz
           fi
 
       - name: Push commits
