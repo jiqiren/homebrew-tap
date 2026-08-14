@@ -6,7 +6,6 @@ on:
   workflow_run:
     workflows: [brew test-bot]
     types: [completed]
-    branches: ["*"]
 
 permissions: {}
 
