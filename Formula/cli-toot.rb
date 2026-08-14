@@ -29,6 +29,6 @@ class CliToot < Formula
   end
 
   test do
-    assert_match "cli-toot #{version}", shell_output("#{bin}/cli-toot version --verbose")
+    assert_match "cli-toot #{version}", shell_output("#{bin}/cli-toot version")
   end
 end
