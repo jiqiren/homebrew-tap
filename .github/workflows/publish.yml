@@ -1,11 +1,10 @@
-# Builds bottles on push to main (via tests.yml), then merges and publishes them.
+# When a PR with formula changes is merged to main, pulls bottles from the PR's
+# test-bot run, merges them into the formula, uploads to a GitHub release, and pushes.
 name: brew pr-pull
 
 on:
-  workflow_run:
-    workflows: [brew test-bot]
-    types: [completed]
-    branches: [main]
+  pull_request:
+    types: [closed]
 
 permissions: {}
 
@@ -15,7 +14,7 @@ defaults:
 
 jobs:
   pr-pull:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -33,26 +32,17 @@ jobs:
         id: git_setup
         uses: Homebrew/actions/git-user-config@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
 
-      - name: Download bottle artifacts
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: bottles_*
-          merge-multiple: true
-
-      - name: Get version
-        id: version
-        run: echo "version=$(brew ruby -e 'puts Formula["cli-toot"].version')" >> "$GITHUB_OUTPUT"
-
-      - name: Merge bottles into formula
+      - name: Pull bottles
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
-        run: |
-          tag="cli-toot-${{ steps.version.outputs.version }}"
-          brew bottle --merge --write --root-url="https://github.com/${{ github.repository }}/releases/download/${tag}" ./*.bottle.json
+          PULL_REQUEST: ${{ github.event.pull_request.number }}
+        run: brew pr-pull --debug --tap="$GITHUB_REPOSITORY" "$PULL_REQUEST"
+
+      - name: Get version
+        id: version
+        run: echo "version=$(brew ruby -e 'puts Formula["cli-toot"].version')" >> "$GITHUB_OUTPUT"
 
       - name: Upload bottles to GitHub release
         env:
