@@ -49,21 +49,6 @@ jobs:
           PULL_REQUEST: ${{ steps.pr.outputs.number }}
         run: brew pr-pull --debug --tap="$GITHUB_REPOSITORY" "$PULL_REQUEST"
 
-      - name: Get version
-        id: version
-        run: echo "version=$(brew ruby -e 'puts Formula["cli-toot"].version')" >> "$GITHUB_OUTPUT"
-
-      - name: Upload bottles to GitHub release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          tag="cli-toot-${{ steps.version.outputs.version }}"
-          if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" ./*.bottle.tar.gz --clobber
-          else
-            gh release create "$tag" --title="cli-toot ${{ steps.version.outputs.version }}" --generate-notes ./*.bottle.tar.gz
-          fi
-
       - name: Push commits
         uses: Homebrew/actions/git-try-push@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
         with:
