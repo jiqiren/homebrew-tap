@@ -12,6 +12,7 @@ class CliToot < Formula
   depends_on "curl"
 
   on_linux do
+    depends_on "gcc" => :build
     depends_on "openssl@3"
   end
 
