@@ -1,4 +1,4 @@
-# Jiqiren Tap
+# Bryan's Tap
 
 ## How do I install these formulae?
 
