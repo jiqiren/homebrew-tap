@@ -4,6 +4,7 @@ class CliToot < Formula
   url "https://github.com/jiqiren/cli-toot/archive/refs/tags/v1.0.3.tar.gz"
   sha256 "bc4c014d64abd16da4a7dbc3c2bff672d8ee4e340f63913670bfddc3269a13bb"
   license "BSD-3-Clause"
+  head "https://github.com/jiqiren/cli-toot.git", branch: "main"
 
   livecheck do
     url :stable
@@ -15,7 +16,6 @@ class CliToot < Formula
   depends_on "pkgconf" => :build
   depends_on "cjson"
   depends_on "curl"
-
   on_linux do
     depends_on "llvm" => :build
     depends_on "openssl@3"
