@@ -22,6 +22,7 @@ class CliToot < Formula
   end
 
   def install
+    ENV["CC"] = Formula["gcc"].opt_bin/"gcc" if OS.linux?
     system "meson", "setup", "build", *std_meson_args, "--wrap-mode=nofallback"
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
