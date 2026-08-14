@@ -11,6 +11,13 @@ class CliToot < Formula
     strategy :github_latest
   end
 
+  bottle do
+    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/cli-toot-1.1.0"
+    sha256 cellar: :any, arm64_tahoe:  "d6d3494f70515741c8714abbb5932569a8553416f4d222c3c7d79aa0b75a8fba"
+    sha256               arm64_linux:  "9f2a14f13f607c1ace046deae88cafb0eb483e37f0108ea1be038dfb247b81ed"
+    sha256               x86_64_linux: "4b6684b22cac6a1fa039f60b47cf05f32f7e34f8c8555852fa6a5b8ab77e0664"
+  end
+
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
