@@ -22,7 +22,7 @@ class CliToot < Formula
   end
 
   def install
-    ENV["CC"] = Formula["llvm"].opt_bin/"clang" if OS.linux?
+    ENV["CC"] = formula_opt_bin("llvm")/"clang" if OS.linux?
     system "meson", "setup", "build", *std_meson_args, "--wrap-mode=nofallback"
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
