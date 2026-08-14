@@ -16,6 +16,7 @@ class CliToot < Formula
   depends_on "pkgconf" => :build
   depends_on "cjson"
   depends_on "curl"
+
   on_linux do
     depends_on "llvm" => :build
     depends_on "openssl@3"
