@@ -1,8 +1,8 @@
 class Sloptoot < Formula
   desc "Minimal C23 CLI Mastodon client"
   homepage "https://github.com/jiqiren/sloptoot"
-  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "bed6295c8b1fc0fede685a3a0ce9ebc4df85b70f42fdedf392fdb240941d90ff"
+  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.2.1.tar.gz"
+  sha256 "d828fd72be06c593e1e999b2dbd90159ce0cbc030f060fe401731f3de61b00b9"
   license "BSD-3-Clause"
   head "https://github.com/jiqiren/sloptoot.git", branch: "main"
 
