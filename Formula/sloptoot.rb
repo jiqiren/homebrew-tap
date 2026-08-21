@@ -11,6 +11,13 @@ class Sloptoot < Formula
     strategy :github_latest
   end
 
+  bottle do
+    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/sloptoot-1.3.0"
+    sha256 cellar: :any, arm64_tahoe:  "5ee1c439487f2cdd66fa4ff8d92aa9cee97f6eae2b0228651697a8bc02dd3310"
+    sha256               arm64_linux:  "268f11340aae0b21a2e400b4a1d9ef0fbfdef5bee9bdc5b696f425110235035c"
+    sha256               x86_64_linux: "d7d786cfcd0dbd566b41233c0be43c36b011e85bf2f8257c302a4a497d5b45e2"
+  end
+
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
