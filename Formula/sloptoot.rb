@@ -1,8 +1,8 @@
 class Sloptoot < Formula
   desc "Minimal C23 CLI Mastodon client"
   homepage "https://github.com/jiqiren/sloptoot"
-  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "585e04c29930cd9337f7b2e22bc60748e27786029e3669c71ab38e4b66a58b93"
+  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.4.0.tar.gz"
+  sha256 "c8843158af6ed7b9242a788244743141d5faaee0f511a47b58173edd32837b59"
   license "BSD-3-Clause"
   head "https://github.com/jiqiren/sloptoot.git", branch: "main"
 
@@ -12,10 +12,8 @@ class Sloptoot < Formula
   end
 
   bottle do
-    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/sloptoot-1.3.1"
-    sha256 cellar: :any, arm64_tahoe:  "88a8e17c061e8167242e0cf5e44f66a2e93459a3454008a080b5d35a8526cdff"
-    sha256               arm64_linux:  "b8fd1326e3cb28d9a281ae7f066983e4bd96b863edd03072958f0f53be7518f0"
-    sha256               x86_64_linux: "1ad5f8478e84de7c18db333d23f90d340b092a3495debd0940aaeab57e0851ba"
+    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/sloptoot-1.4.0"
+    sha256 cellar: :any, arm64_golden_gate: "2103c18ad2b7030b67e0d34985d73cfac8699e619fc708bd804f13fef867ff55"
   end
 
   depends_on "meson" => :build
@@ -23,7 +21,11 @@ class Sloptoot < Formula
   depends_on "pkgconf" => :build
   depends_on "cjson"
   depends_on "curl"
+  depends_on "jpeg-turbo"
+  depends_on "libnsgif"
+  depends_on "libpng"
   depends_on "sqlite"
+  depends_on "webp"
   on_linux do
     depends_on "llvm" => :build
     depends_on "openssl@3"
