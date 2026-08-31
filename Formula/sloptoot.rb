@@ -1,18 +1,14 @@
 class Sloptoot < Formula
   desc "Minimal C23 CLI Mastodon client"
   homepage "https://github.com/jiqiren/sloptoot"
-  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.4.2.tar.gz"
-  sha256 "6530a6ad596789f76fe876be106208d23f5b839290a4fa1916fcedd04c3843fa"
+  url "https://github.com/jiqiren/sloptoot/archive/refs/tags/v1.4.3.tar.gz"
+  sha256 "fbf3732eca514d6defd3103cb7882c3d88e5c01728957365e2f39b67c22703f7"
   license "BSD-3-Clause"
   head "https://github.com/jiqiren/sloptoot.git", branch: "main"
 
   livecheck do
     url :stable
     strategy :github_latest
-  end
-
-  bottle do
-    root_url "https://github.com/jiqiren/homebrew-tap/releases/download/sloptoot-1.4.2"
   end
 
   depends_on "meson" => :build
