@@ -8,7 +8,7 @@ Currently the only formula is **sloptoot** (upstream: https://github.com/jiqiren
 - `Formula/<name>.rb` — formula definitions. One class per file, class name is the CamelCase of the filename.
 - `.github/workflows/` — CI:
   - `tests.yml` — `brew test-bot` on push to `main` and on PRs. Builds bottles on `macos-26`, `ubuntu-26.04`, `ubuntu-26.04-arm`, uploads them as artifacts `bottles_<os>`.
-  - `publish.yml` — runs on successful `test-bot` PR completion for non-Dependabot PRs. Calls `brew pr-pull` to pull bottle artifacts, merge them into the formula, upload to a GitHub release, and push to `main` (which auto-closes the PR). **Do not push to `main` directly for version bumps — open a PR so bottles get built first.**
+  - `publish.yml` — runs on successful `test-bot` PR completion for non-Dependabot PRs. Calls `brew pr-pull` to pull bottle artifacts, merge them into the formula, upload to a GitHub release, and push to `main` (which auto-closes the PR), then deletes the PR branch. **Do not push to `main` directly for version bumps — open a PR so bottles get built first.**
   - `dependabot-automerge.yml` — runs on successful `test-bot` PR completion for `dependabot/*` PRs and merges them with `gh pr merge --rebase` so they are recorded as merged (rather than being auto-closed by `pr-pull`). Dependabot PRs only touch workflows and have no bottles, so they are excluded from `publish.yml`.
   - `autobump.yml` — daily `brew bump` to detect new upstream tags and open PRs automatically.
 

@@ -56,3 +56,14 @@ jobs:
         uses: Homebrew/actions/git-try-push@848c272c7bfe984a197bd4d16383f4c106ec61e6 # 2026.09.21.1
         with:
           branch: main
+
+      - name: Delete PR branch
+        # brew pr-pull pushes straight to main and GitHub closes the PR, so the
+        # branch is never removed by delete_branch_on_merge. Ignore failures
+        # (e.g. PRs from forks, where the branch cannot be deleted).
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${HEAD_BRANCH}"
