@@ -1,14 +1,15 @@
 # AGENTS.md
 
 This is a Homebrew tap (`jiqiren/tap`) hosting formulae for the `jiqiren` org.
-Currently the only formula is **cli-toot** (upstream: https://github.com/jiqiren/cli-toot).
+Currently the only formula is **sloptoot** (upstream: https://github.com/jiqiren/sloptoot). It was previously named `cli-toot`.
 
 ## Layout
 
 - `Formula/<name>.rb` — formula definitions. One class per file, class name is the CamelCase of the filename.
 - `.github/workflows/` — CI:
   - `tests.yml` — `brew test-bot` on push to `main` and on PRs. Builds bottles on `macos-26`, `ubuntu-26.04`, `ubuntu-26.04-arm`, uploads them as artifacts `bottles_<os>`.
-  - `publish.yml` — runs on successful `test-bot` PR completion. Calls `brew pr-pull` to pull bottle artifacts, merge them into the formula, upload to a GitHub release, and push to `main` (which auto-closes the PR). **Do not push to `main` directly for version bumps — open a PR so bottles get built first.**
+  - `publish.yml` — runs on successful `test-bot` PR completion for non-Dependabot PRs. Calls `brew pr-pull` to pull bottle artifacts, merge them into the formula, upload to a GitHub release, and push to `main` (which auto-closes the PR). **Do not push to `main` directly for version bumps — open a PR so bottles get built first.**
+  - `dependabot-automerge.yml` — runs on successful `test-bot` PR completion for `dependabot/*` PRs and merges them with `gh pr merge --rebase` so they are recorded as merged (rather than being auto-closed by `pr-pull`). Dependabot PRs only touch workflows and have no bottles, so they are excluded from `publish.yml`.
   - `autobump.yml` — daily `brew bump` to detect new upstream tags and open PRs automatically.
 
 ## Releasing a new version of a formula
@@ -19,7 +20,7 @@ When a new tag is cut upstream and you need to ship it here (e.g. to fix a brew-
    ```sh
    curl -sL "https://github.com/jiqiren/<name>/archive/refs/tags/v<VERSION>.tar.gz" | shasum -a 256
    ```
-2. **Create a branch** named `<formula>-<VERSION>` (e.g. `cli-toot-1.1.1`).
+2. **Create a branch** named `<formula>-<VERSION>` (e.g. `sloptoot-1.4.5`).
 3. **Edit `Formula/<name>.rb`:**
    - Update `url` to the new `refs/tags/v<VERSION>.tar.gz`.
    - Update `sha256` to the value from step 1.
@@ -34,11 +35,11 @@ When a new tag is cut upstream and you need to ship it here (e.g. to fix a brew-
 - Upstream release should exist as a git tag before you bump the formula here. The tarball URL must resolve.
 - `brew audit --strict --new-formula Formula/<name>.rb` is a good local sanity check before pushing.
 
-## Formula conventions (cli-toot)
+## Formula conventions (sloptoot)
 
-- Meson + ninja build, `--wrap-mode=nofallback`.
-- Depends on `cjson` and `curl`; on Linux also `llvm` (build, for Clang) and `openssl@3`.
-- Test block asserts `cli-toot version` output contains the formula `version`.
+- Meson + ninja build with `pkgconf`, `--wrap-mode=nofallback`.
+- Depends on `cjson`, `curl`, `jpeg-turbo`, `libnsgif`, `libpng`, `sqlite` and `webp`; on Linux also `llvm` (build, for Clang) and `openssl@3`.
+- Test block asserts `sloptoot version` output contains the formula `version`.
 - License `BSD-3-Clause`.
 
 ## Repo conventions
